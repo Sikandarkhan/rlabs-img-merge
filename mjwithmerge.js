@@ -1,8 +1,34 @@
 const sharp = require('sharp');
 const axios = require('axios');
+const http = require('http');
+
 
 const image1URL = 'http://localhost:3000/attachments/1094892992281718894/1142020837130641461/rudralabs_newyork_city_with_water_colors_with_white_background_a2f48445-c146-44b5-b932-d83d67fd94b5.png?width=500&height=500';
 const image2Path = './Untitled3.png'; // Use the local path for image2
+
+const server = http.createServer((req, res) => {
+    if (req.url === '/') {
+        // Handle requests at the root URL
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('Node.js server is running on port 8002');
+    } else if (req.url === '/downloadImages') {
+        // Handle requests for downloading images
+        downloadImages();
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('Downloading and processing images...');
+    } else {
+        // Handle other requests
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Not found');
+    }
+});
+
+// Listen on port 8002
+const port = 8002;
+server.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
+
 
 async function downloadImages() {
     try {
