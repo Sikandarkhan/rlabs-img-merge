@@ -4,8 +4,8 @@ const http = require('http');
 const fs = require('fs');
 
 
-const image1URL = 'https://cdn.discordapp.com/attachments/1094892992281718894/1143836967507865680/rudralabs_AR_Rahman_as_folding_India_country_flag_while_signing_c1f5b633-5eaf-4928-8199-f6d2ea9ebc24.png?width=500&height=500';
-const image2Path = './Untitled3.png'; // Use the local path for image2
+const image1URL = 'https://molecule.fit/cdn/shop/files/SLMumbaibottle.jpg?v=1691811748?width=1020&height=1020';
+const image2Path = './tajmahal.png'; // Use the local path for image2
 
 const server = http.createServer((req, res) => {
     if (req.url === '/') {
@@ -74,8 +74,8 @@ async function downloadImages(res) {
             },
             {
                 input: image2Buffer,
-                top: 850,
-                left: 0, // Position next to the first image with a margin
+                top: 350,
+                left: 409, // Position next to the first image with a margin
             },
         ];
 
