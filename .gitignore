@@ -1,0 +1,37 @@
+
+.git-ignore
+# Dependency directories
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment variables
+.env
+
+# Build and compiled files
+/build/
+/dist/
+/out/
+
+# Logs
+logs/
+*.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor-specific files
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Cache and temp files
+.cache/
+*.swp
+*.swo
+*.swn
+*.swm
+
+# Miscellaneous
+*.bak

@@ -36,7 +36,7 @@ const image2OriginalWidth = Math.round(image2OriginalHeight * image2Aspect); // 
 // Scale down Image 2 by 2 units
 const image2Height = Math.round(image2OriginalHeight / 1.5);
 const image2Width = Math.round(image2OriginalWidth / 1.5);
-const image2Top = Math.round((totalHeight - image2Height) / 2); // Center Image 2 vertically
+const image2Top = Math.round((totalHeight - image2Height) / 2)-100; // Center Image 2 vertically
 
 // Text properties
 const scorpioFontSize = 120; // Font size for the text "Scorpio"
@@ -86,13 +86,13 @@ const textBuffer = canvas.toBuffer('image/png');
         background: 'white'
       }
     })
-    .png()
+    .tiff()
     .composite([
       { input: processedImage2, top: image2Top, left: Math.round((image2Width) / 0.3)-150 }, // Image 2 is on the complete left and scaled down
       { input: processedImage1, top: image1Top, left: image1Left}, // Image 1 is centered horizontally
       { input: textBuffer, top: -50, left: 0 } // Text canvas covers the entire width
     ])
-    .toFile('moderna 750_final.png');
+    .toFile('moderna 750_final.tiff');
 
     console.log('Image has been created successfully.');
   } catch (err) {
