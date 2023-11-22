@@ -3,14 +3,19 @@ const { createCanvas, registerFont } = require('canvas');
 
 // Register the custom font
 // Register the custom fonts
+const fontPathAllura = './Allura-Regular.ttf'; // Make sure this path is correct
+
 const fontPathRaleway = './Raleway-Regular.ttf'; // Make sure this path is correct
 const fontPathOpenSans = './OpenSans-Regular.ttf'; // Make sure this path is correct
-registerFont(fontPathRaleway, { family: 'Raleway' });
-registerFont(fontPathOpenSans, { family: 'OpenSans' });
+registerFont(fontPathAllura, { family: 'Allura' });
+// registerFont(fontPathRaleway, { family: 'Raleway' });
+// registerFont(fontPathOpenSans, { family: 'OpenSans' });
 
 // Define the paths to your images
 const image2Path = './MoleculeLogoV8.png';
-const image1Path = './zodiacPrint.png';
+const image1Path = './zodiac/Virgo.png';
+const qrCodePath = './qrCodeImage.png'; // Replace with your QR code image path
+
 
 // Define dimensions in pixels, assuming a DPI of 300 for print-quality images
 const dpi = 300;
@@ -24,6 +29,8 @@ const totalHeight = cmToPixel(17);
 const image1Top = cmToPixel(1.5); // Image 1's top offset
 const image1Height = cmToPixel(12.1); // Cropped height for Image 1
 const image1Width = cmToPixel(11.4); // Cropped width for Image 1
+// Define QR code dimensions
+const qrCodeSize = cmToPixel(1); // 1x1 cm
 
     // Calculate the left offset for Image 1 to be 8 cm from the right border
     const image1Left = totalWidth - image1Width - cmToPixel(3);
@@ -47,17 +54,17 @@ const canvas = createCanvas(totalWidth, totalHeight);
 const ctx = canvas.getContext('2d');
 
 // Draw the text "Scorpio" on the canvas
-ctx.font = `${scorpioFontSize}px 'Raleway'`;
+ctx.font = `${scorpioFontSize}px 'Allura'`;
 ctx.fillStyle = 'black';
 ctx.textAlign = 'center';
 ctx.textBaseline = 'bottom';
 //ctx.fillText('cancer', totalWidth / 2, totalHeight - cmToPixel(3)); // 3cm above the bottom
-ctx.fillText('cancer', (image1Left) + (image1Width / 2), totalHeight - cmToPixel(1.5)); // Adjusted for center of Image 1
+ctx.fillText('virgo', (image1Left) + (image1Width / 2), totalHeight - cmToPixel(1.5)); // Adjusted for center of Image 1
 
 // Draw the additional text "With love from Artefax" below "Scorpio"
-ctx.font = `${additionalFontSize}px 'OpenSans'`;
-//ctx.fillText('with love from Artefax', totalWidth / 2, totalHeight - cmToPixel(2)); // 1cm above the bottom
-ctx.fillText('this is the text area. this is the text area', (image1Left)+ (image1Width / 2), totalHeight - cmToPixel(0.8)); // Adjusted for center of Image 1
+// ctx.font = `${additionalFontSize}px 'OpenSans'`;
+// //ctx.fillText('with love from Artefax', totalWidth / 2, totalHeight - cmToPixel(2)); // 1cm above the bottom
+// ctx.fillText('this is the text area. this is the text area', (image1Left)+ (image1Width / 2), totalHeight - cmToPixel(0.8)); // Adjusted for center of Image 1
 
 // Convert canvas to buffer for the text
 const textBuffer = canvas.toBuffer('image/png');
@@ -74,7 +81,15 @@ const textBuffer = canvas.toBuffer('image/png');
       .resize(image1Width, image1Height)
       .toBuffer();
 
-   
+     // Load and resize the QR code
+     const qrCodeImage = await sharp(qrCodePath)
+     .resize(qrCodeSize, qrCodeSize)
+     .toBuffer();
+
+        // Calculate the position for the QR code (right below the molecule logo)
+    const qrCodeTop = image2Top + image2Height; // Directly below Image 2
+    const qrCodeLeft = Math.round((image2Width / 0.3) - 150 + (image2Width - qrCodeSize) / 2+125); // Centered below Image 2
+
 
 
     // Composite the images and the text onto the final image
@@ -90,9 +105,11 @@ const textBuffer = canvas.toBuffer('image/png');
     .composite([
       { input: processedImage2, top: image2Top, left: Math.round((image2Width) / 0.3)-150 }, // Image 2 is on the complete left and scaled down
       { input: processedImage1, top: image1Top, left: image1Left}, // Image 1 is centered horizontally
+      { input: qrCodeImage, top: image2Top*4, left: qrCodeLeft }, // QR code positioned
+
       { input: textBuffer, top: -50, left: 0 } // Text canvas covers the entire width
     ])
-    .toFile('moderna 750_final.tiff');
+    .toFile('Virgo_final.tiff');
 
     console.log('Image has been created successfully.');
   } catch (err) {
