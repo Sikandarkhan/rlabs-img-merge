@@ -8,12 +8,12 @@ const fontPathAllura = './Allura-Regular.ttf'; // Make sure this path is correct
 const fontPathRaleway = './Raleway-Regular.ttf'; // Make sure this path is correct
 const fontPathOpenSans = './OpenSans-Regular.ttf'; // Make sure this path is correct
 registerFont(fontPathAllura, { family: 'Allura' });
-// registerFont(fontPathRaleway, { family: 'Raleway' });
+registerFont(fontPathRaleway, { family: 'Raleway' });
 // registerFont(fontPathOpenSans, { family: 'OpenSans' });
 
 // Define the paths to your images
-const image2Path = './MoleculeLogoV8.png';
-const image1Path = './zodiac/Virgo.png';
+const image2Path = './yantralive/new_logo.jpg';
+const image1Path = './yantralive/new_beginning.png';
 const qrCodePath = './qrCodeImage.png'; // Replace with your QR code image path
 
 
@@ -46,7 +46,7 @@ const image2Width = Math.round(image2OriginalWidth / 1.5);
 const image2Top = Math.round((totalHeight - image2Height) / 2)-100; // Center Image 2 vertically
 
 // Text properties
-const scorpioFontSize = 120; // Font size for the text "Scorpio"
+const scorpioFontSize = 90; // Font size for the text "Scorpio"
 const additionalFontSize = 70; // Font size for the additional text "With love from Artefax"
 
 // Create a canvas to draw text on
@@ -54,12 +54,12 @@ const canvas = createCanvas(totalWidth, totalHeight);
 const ctx = canvas.getContext('2d');
 
 // Draw the text "Scorpio" on the canvas
-ctx.font = `${scorpioFontSize}px 'Allura'`;
+ctx.font = `${scorpioFontSize}px 'Raleway'`;
 ctx.fillStyle = 'black';
 ctx.textAlign = 'center';
 ctx.textBaseline = 'bottom';
 //ctx.fillText('cancer', totalWidth / 2, totalHeight - cmToPixel(3)); // 3cm above the bottom
-ctx.fillText('virgo', (image1Left) + (image1Width / 2), totalHeight - cmToPixel(1.5)); // Adjusted for center of Image 1
+ctx.fillText('new beginnings', (image1Left) + (image1Width / 2), totalHeight - cmToPixel(1.5)); // Adjusted for center of Image 1
 
 // Draw the additional text "With love from Artefax" below "Scorpio"
 // ctx.font = `${additionalFontSize}px 'OpenSans'`;
@@ -81,14 +81,14 @@ const textBuffer = canvas.toBuffer('image/png');
       .resize(image1Width, image1Height)
       .toBuffer();
 
-     // Load and resize the QR code
-     const qrCodeImage = await sharp(qrCodePath)
-     .resize(qrCodeSize, qrCodeSize)
-     .toBuffer();
+    //  // Load and resize the QR code
+    //  const qrCodeImage = await sharp(qrCodePath)
+    //  .resize(qrCodeSize, qrCodeSize)
+    //  .toBuffer();
 
-        // Calculate the position for the QR code (right below the molecule logo)
-    const qrCodeTop = image2Top + image2Height; // Directly below Image 2
-    const qrCodeLeft = Math.round((image2Width / 0.3) - 150 + (image2Width - qrCodeSize) / 2+125); // Centered below Image 2
+    //     // Calculate the position for the QR code (right below the molecule logo)
+    // const qrCodeTop = image2Top + image2Height; // Directly below Image 2
+    // const qrCodeLeft = Math.round((image2Width / 0.3) - 150 + (image2Width - qrCodeSize) / 2+125); // Centered below Image 2
 
 
 
@@ -101,15 +101,15 @@ const textBuffer = canvas.toBuffer('image/png');
         background: 'white'
       }
     })
-    .tiff()
+    .png()
     .composite([
       { input: processedImage2, top: image2Top, left: Math.round((image2Width) / 0.3)-150 }, // Image 2 is on the complete left and scaled down
       { input: processedImage1, top: image1Top, left: image1Left}, // Image 1 is centered horizontally
-      { input: qrCodeImage, top: image2Top*4, left: qrCodeLeft }, // QR code positioned
+      // { input: qrCodeImage, top: image2Top*4, left: qrCodeLeft }, // QR code positioned
 
       { input: textBuffer, top: -50, left: 0 } // Text canvas covers the entire width
     ])
-    .toFile('Virgo_final.tiff');
+    .toFile('./yantralive/output/new_beginning.png');
 
     console.log('Image has been created successfully.');
   } catch (err) {
