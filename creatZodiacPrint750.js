@@ -59,7 +59,7 @@ ctx.fillStyle = 'black';
 ctx.textAlign = 'center';
 ctx.textBaseline = 'bottom';
 //ctx.fillText('cancer', totalWidth / 2, totalHeight - cmToPixel(3)); // 3cm above the bottom
-ctx.fillText('new beginnings', (image1Left) + (image1Width / 2), totalHeight - cmToPixel(1.5)); // Adjusted for center of Image 1
+ctx.fillText('engines of empowerment', (image1Left) + (image1Width / 2), totalHeight - cmToPixel(1.5)); // Adjusted for center of Image 1
 
 // Draw the additional text "With love from Artefax" below "Scorpio"
 // ctx.font = `${additionalFontSize}px 'OpenSans'`;
@@ -109,7 +109,7 @@ const textBuffer = canvas.toBuffer('image/png');
 
       { input: textBuffer, top: -50, left: 0 } // Text canvas covers the entire width
     ])
-    .toFile('./yantralive/output/new_beginning.png');
+    .toFile('./yantralive/output/engines_of_empowerment.png');
 
     console.log('Image has been created successfully.');
   } catch (err) {

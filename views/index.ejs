@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Creation Form</title>
+</head>
+<body>
+  <h1>Create Print File</h1>
+  <form action="/generate-image" method="post" enctype="multipart/form-data">
+    <div>
+      <label for="image1">Image 1:</label>
+      <input type="file" name="image1" id="image1" required>
+    </div>
+    <div>
+      <label for="image2">Image 2:</label>
+      <input type="file" name="image2" id="image2" required>
+    </div>
+    <div>
+      <label for="text1">Text 1:</label>
+      <input type="text" name="text1" id="text1" required>
+    </div>
+    <div>
+      <label for="text2">Text 2:</label>
+      <input type="text" name="text2" id="text2" required>
+    </div>
+    <button type="submit">Create Image</button>
+  </form>
+</body>
+</html>
