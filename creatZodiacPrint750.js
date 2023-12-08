@@ -14,7 +14,7 @@ registerFont(fontPathRaleway, { family: 'Raleway' });
 // Define the paths to your images
 const image2Path = './yantralive/new_logo.jpg';
 const image1Path = './yantralive/new_beginning.png';
-const qrCodePath = './qrCodeImage.png'; // Replace with your QR code image path
+const qrCodePath = './yantralive/brand_icon_logo.png'; // Replace with your QR code image path
 
 
 // Define dimensions in pixels, assuming a DPI of 300 for print-quality images
@@ -82,13 +82,13 @@ const textBuffer = canvas.toBuffer('image/png');
       .toBuffer();
 
     //  // Load and resize the QR code
-    //  const qrCodeImage = await sharp(qrCodePath)
-    //  .resize(qrCodeSize, qrCodeSize)
-    //  .toBuffer();
+     const qrCodeImage = await sharp(qrCodePath)
+     .resize(qrCodeSize, qrCodeSize)
+     .toBuffer();
 
     //     // Calculate the position for the QR code (right below the molecule logo)
-    // const qrCodeTop = image2Top + image2Height; // Directly below Image 2
-    // const qrCodeLeft = Math.round((image2Width / 0.3) - 150 + (image2Width - qrCodeSize) / 2+125); // Centered below Image 2
+    const qrCodeTop = image2Top + image2Height; // Directly below Image 2
+    const qrCodeLeft = Math.round((image2Width / 0.3) - 150 + (image2Width - qrCodeSize) / 2+125); // Centered below Image 2
 
 
 
@@ -105,7 +105,8 @@ const textBuffer = canvas.toBuffer('image/png');
     .composite([
       { input: processedImage2, top: image2Top, left: Math.round((image2Width) / 0.3)-150 }, // Image 2 is on the complete left and scaled down
       { input: processedImage1, top: image1Top, left: image1Left}, // Image 1 is centered horizontally
-      // { input: qrCodeImage, top: image2Top*4, left: qrCodeLeft }, // QR code positioned
+      { input: qrCodeImage, top: (image2Top*4.5), left: image1Left*1.5 }, // QR code positioned
+      // { input: qrCodeImage, top: image2Top*4, left: 0 }, // QR code positioned
 
       { input: textBuffer, top: -50, left: 0 } // Text canvas covers the entire width
     ])
