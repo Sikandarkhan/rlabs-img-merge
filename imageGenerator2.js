@@ -11,7 +11,7 @@ const dpi = 300;
 const cmToPixel = (cm) => Math.round(cm * (dpi / 2.54));
 
 // Function to generate the image
-function generateImage(image1Path, image2Path, text1, image3Path) {
+function generateImage(image1Path, image2Path, text1, text2) {
   // Define the total dimensions of the final image
   const totalWidth = cmToPixel(24.2);
   const totalHeight = cmToPixel(17);
@@ -57,6 +57,19 @@ function generateImage(image1Path, image2Path, text1, image3Path) {
   //ctx.fillText('cancer', totalWidth / 2, totalHeight - cmToPixel(3)); // 3cm above the bottom
   ctx.fillText(text1, (image1Left) + (image1Width / 2), totalHeight - cmToPixel(1.5)); // Adjusted for center of Image 1
 
+  const canvas2 = createCanvas(totalWidth, totalHeight);
+  const ctx2 = canvas2.getContext('2d');
+
+  // ... your existing logic to draw on the canvas ...
+  // Draw the text "Scorpio" on the canvas
+
+  ctx2.font = `${scorpioFontSize}px 'Raleway'`;
+  ctx2.fillStyle = 'black';
+  ctx2.textAlign = 'center';
+  ctx2.textBaseline = 'bottom';
+  //ctx.fillText('cancer', totalWidth / 2, totalHeight - cmToPixel(3)); // 3cm above the bottom
+  ctx2.fillText(text2, (image1Left) + (image1Width / 2), totalHeight - cmToPixel(1.5) + image1Top); // Adjusted for center of Image 1 and positioned below canvas
+
   // Draw the additional text "With love from Artefax" below "Scorpio"
   // ctx.font = `${additionalFontSize}px 'OpenSans'`;
   // //ctx.fillText('with love from Artefax', totalWidth / 2, totalHeight - cmToPixel(2)); // 1cm above the bottom
@@ -71,7 +84,7 @@ function generateImage(image1Path, image2Path, text1, image3Path) {
       // Resize and process images with sharp
       const processedImage1 = await sharp(image1Path).resize(/* ... */).toBuffer();
       const processedImage2 = await sharp(image2Path).resize(/* ... */).toBuffer();
-      const processedImage3 = await sharp(image3Path).resize(qrCodeSize, qrCodeSize).toBuffer();
+      // const processedImage3 = await sharp(image3Path).resize(qrCodeSize, qrCodeSize).toBuffer();
 
       // ... more of your sharp logic ...
 
@@ -88,9 +101,11 @@ function generateImage(image1Path, image2Path, text1, image3Path) {
         { input: processedImage2, top: image2Top, left: Math.round((image2Width) / 0.3)-150 }, // Image 2 is on the complete left and scaled down
         { input: processedImage1, top: image1Top, left: image1Left}, // Image 1 is centered horizontally
         // { input: qrCodeImage, top: image2Top*4, left: qrCodeLeft }, // QR code positioned
-        { input: processedImage3, top: (image2Top*4.5), left: image1Left*1.5 }, // QR code positioned
+        // { input: processedImage3, top: (image2Top*4.5), left: image1Left*1.5 }, // QR code positioned
 
-        { input: canvas.toBuffer(), top: -50, left: 0 }
+        { input: canvas.toBuffer(), top: -50, left: 0 },
+        { input: canvas2.toBuffer(), top: -60, left: 0 }
+
         // { input: , top: 0, left: 0 }
       ])
       .toBuffer();

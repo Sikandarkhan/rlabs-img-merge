@@ -3,7 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
-const generateImage = require('./imageGenerator');
+const generateImage = require('./imageGenerator2');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
