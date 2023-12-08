@@ -24,13 +24,13 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.post('/generate-image', upload.fields([{ name: 'image1' }, { name: 'image2' }]), (req, res) => {
+app.post('/generate-image', upload.fields([{ name: 'image1' }, { name: 'image2' },{ name: 'image3' }]), (req, res) => {
   const text1 = req.body.text1;
-  const text2 = req.body.text2;
   const imagePath1 = req.files['image1'][0].path;
   const imagePath2 = req.files['image2'][0].path;
+  const imagePath3 = req.files['image3'][0].path;
 
-  generateImage(imagePath1, imagePath2, text1, text2)
+  generateImage(imagePath1, imagePath2, text1, imagePath3)
     .then(buffer => {
       // You might want to use a unique name for each output image
       const outputPath = 'output/generated-image.png';

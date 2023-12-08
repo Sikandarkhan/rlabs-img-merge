@@ -11,7 +11,7 @@ const dpi = 300;
 const cmToPixel = (cm) => Math.round(cm * (dpi / 2.54));
 
 // Function to generate the image
-function generateImage(image1Path, image2Path, text1, text2) {
+function generateImage(image1Path, image2Path, text1, image3Path) {
   // Define the total dimensions of the final image
   const totalWidth = cmToPixel(24.2);
   const totalHeight = cmToPixel(17);
@@ -55,7 +55,7 @@ ctx.fillStyle = 'black';
 ctx.textAlign = 'center';
 ctx.textBaseline = 'bottom';
 //ctx.fillText('cancer', totalWidth / 2, totalHeight - cmToPixel(3)); // 3cm above the bottom
-ctx.fillText('engines of empowerment', (image1Left) + (image1Width / 2), totalHeight - cmToPixel(1.5)); // Adjusted for center of Image 1
+ctx.fillText(text1, (image1Left) + (image1Width / 2), totalHeight - cmToPixel(1.5)); // Adjusted for center of Image 1
 
 // Draw the additional text "With love from Artefax" below "Scorpio"
 // ctx.font = `${additionalFontSize}px 'OpenSans'`;
@@ -71,6 +71,7 @@ const textBuffer = canvas.toBuffer('image/png');
       // Resize and process images with sharp
       const processedImage1 = await sharp(image1Path).resize(/* ... */).toBuffer();
       const processedImage2 = await sharp(image2Path).resize(/* ... */).toBuffer();
+      const processedImage3 = await sharp(image3Path).resize(qrCodeSize, qrCodeSize).toBuffer();
 
       // ... more of your sharp logic ...
 
@@ -87,7 +88,8 @@ const textBuffer = canvas.toBuffer('image/png');
         { input: processedImage2, top: image2Top, left: Math.round((image2Width) / 0.3)-150 }, // Image 2 is on the complete left and scaled down
         { input: processedImage1, top: image1Top, left: image1Left}, // Image 1 is centered horizontally
         // { input: qrCodeImage, top: image2Top*4, left: qrCodeLeft }, // QR code positioned
-  
+        { input: processedImage3, top: (image2Top*4.5), left: image1Left*1.5 }, // QR code positioned
+
         { input: canvas.toBuffer(), top: -50, left: 0 } 
        // { input: , top: 0, left: 0 }
       ])
