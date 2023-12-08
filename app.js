@@ -23,6 +23,7 @@ const upload = multer({ storage: storage });
 // Register fonts
 // ... (same as your script)
 
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
